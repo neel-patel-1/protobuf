@@ -2,8 +2,6 @@
 # to 3.26.
 cmake_minimum_required(VERSION 3.10...3.26)
 
-include (${protobuf_SOURCE_DIR}/cmake/LLVMIRUtil.cmake)
-
 # Revert to old behavior for MSVC debug symbols.
 if(POLICY CMP0141)
   cmake_policy(SET CMP0141 OLD)
@@ -24,6 +22,9 @@ if(protobuf_DEPRECATED_CMAKE_SUBDIRECTORY_USAGE)
   get_filename_component(PROJECT_SOURCE_DIR ${PROJECT_SOURCE_DIR} DIRECTORY)
   get_filename_component(protobuf_SOURCE_DIR ${protobuf_SOURCE_DIR} DIRECTORY)
 endif()
+
+#IR
+include (${protobuf_SOURCE_DIR}/cmake/LLVMIRUtil.cmake)
 
 # Options
 option(protobuf_INSTALL "Install protobuf binaries and files" ON)
