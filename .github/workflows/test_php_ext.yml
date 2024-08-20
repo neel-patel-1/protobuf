@@ -42,7 +42,7 @@ jobs:
             bazel build //php:release $BAZEL_FLAGS;
             cp bazel-bin/php/protobuf-*.tgz .
 
-      - uses: actions/upload-artifact@0b7f8abb1508181956e8e162db84b466c27e18ce
+      - uses: actions/upload-artifact@834a144ee995460fba8ed112a2fc961b36a5ec5a
         with:
           name: protobuf-php-release
           path: protobuf-*.tgz
