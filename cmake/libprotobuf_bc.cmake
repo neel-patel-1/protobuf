@@ -8,6 +8,10 @@ add_library(libprotobuf_pass ${protobuf_SHARED_OR_STATIC}
   ${libprotobuf_hdrs}
   ${protobuf_version_rc_file})
 
+foreach(_src IN ITEMS ${libprotobuf_srcs})
+  message(STATUS "libprotobuf_pass: ${_src}")
+endforeach()
+
 set_target_properties(libprotobuf_pass PROPERTIES LINKER_LANGUAGE CXX)
 
 llvmir_attach_bc_target( TARGET libprotobuf_pass_bc DEPENDS libprotobuf_pass )
