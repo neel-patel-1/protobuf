@@ -3,16 +3,17 @@
 include(${protobuf_SOURCE_DIR}/src/file_lists.cmake)
 include(${protobuf_SOURCE_DIR}/cmake/protobuf-configure-target.cmake)
 
-add_library(libprotobuf_pass ${protobuf_SHARED_OR_STATIC}
-  ${libprotobuf_srcs}
-  ${libprotobuf_hdrs}
-  ${protobuf_version_rc_file})
+set(BC_EMIT_FLAGS "-emit-llvm -g -S -O3")
+set(${BC_EMIT_DIR} "${CMAKE_CURRENT_BINARY_DIR}/src_bc_files")
+add_custom_target(build-time-bc-directory ALL
+  COMMAND ${CMAKE_COMMAND} -E make_directory ${BC_EMIT_DIR}
+)
 
 foreach(_src IN ITEMS ${libprotobuf_srcs})
   message(STATUS "libprotobuf_pass: ${_src}")
+  set(BC_FILE "${CMAKE_CURRENT_BINARY_DIR}/${_src}.bc")
+  add_custom_command(
+    OUTPUT ${BC_FILE}
+    COMMAND ${CMAKE_CXX_COMPILER} ${CMAKE_CXX_FLAGS} ${BC_EMIT_FLAGS} -c ${_src} -o ${BC_FILE}
+  )
 endforeach()
-
-set_target_properties(libprotobuf_pass PROPERTIES LINKER_LANGUAGE CXX)
-
-llvmir_attach_bc_target( TARGET libprotobuf_pass_bc DEPENDS libprotobuf_pass )
-llvmir_attach_opt_pass_target( TARGET libprotobuf_pass_bc_opt DEPENDS libprotobuf_pass_bc -mem2reg )
