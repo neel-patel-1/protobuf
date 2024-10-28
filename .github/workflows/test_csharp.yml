@@ -64,7 +64,7 @@ jobs:
 
       # Workaround for incompatibility between gcloud and windows-2019 runners.
       - name: Install Python
-        uses: actions/setup-python@61a6322f88396a6271a6ee3565807d608ecaddd1 # v4.7.0
+        uses: actions/setup-python@0b93645e9fea7318ecaed2b359559ac225c90a2b # v5.3.0
         with:
           python-version: '3.9'
       - name: Use custom python for gcloud
