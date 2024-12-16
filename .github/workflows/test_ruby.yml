@@ -152,7 +152,7 @@ jobs:
 
       - name: Pin Ruby version
         if: ${{ !matrix.continuous-only || inputs.continuous-run }}
-        uses: ruby/setup-ruby@961f85197f92e4842e3cb92a4f97bd8e010cdbaf # v1.165.0
+        uses: ruby/setup-ruby@401c19e14f474b54450cd3905bb8b86e2c8509cf # v1.204.0
         with:
           ruby-version: ${{ matrix.version }}
 
